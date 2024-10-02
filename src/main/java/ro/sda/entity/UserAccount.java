@@ -23,9 +23,9 @@ public class UserAccount {
     @Column(name = "street")
     private String street;
     @Column(name = "house_number")
-    private String houseNumber;
+    private int houseNumber;
     @Column(name = "zip_code")
-    private String zipCode;
+    private int zipCode;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Bidding> bids;
 
