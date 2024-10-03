@@ -2,6 +2,7 @@ package ro.sda.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import ro.sda.enums.Category;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -26,7 +27,8 @@ public class Auction {
     private String description;
 
     @Column(name="category", nullable=false)
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     @Column(name="minimumAmount", nullable=false)
     private BigDecimal minimumAmount;

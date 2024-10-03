@@ -1,15 +1,14 @@
 package ro.sda.mapper;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import ro.sda.dto.request.user.UserRequest;
+import ro.sda.dto.response.user.UserResponse;
 import ro.sda.entity.UserAccount;
 
 public class UserMapper {
 
 //    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public static UserAccount fromUserToRequest(UserRequest userRequest){
+    public static UserAccount fromUserRequestToEntity(UserRequest userRequest){
 
         UserAccount userAccount = new UserAccount();
 
@@ -21,5 +20,18 @@ public class UserMapper {
         userAccount.setZipCode(userRequest.getZipcode());
 
         return userAccount;
+    }
+
+    public static UserResponse fromEntityToResponse(UserAccount userAccount) {
+
+        UserResponse userResponse = new UserResponse();
+
+        userResponse.setAccountName(userAccount.getAccountName());
+        userResponse.setLoginEmail(userAccount.getLoginEmail());
+        userResponse.setStreet(userAccount.getStreet());
+        userResponse.setHouseNumber(userAccount.getHouseNumber());
+        userResponse.setZipCode(userAccount.getZipCode());
+
+        return userResponse;
     }
 }
