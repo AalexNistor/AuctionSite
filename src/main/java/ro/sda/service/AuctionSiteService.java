@@ -1,10 +1,12 @@
 package ro.sda.service;
 
 import org.springframework.stereotype.Service;
+import ro.sda.dto.bidding.request.RequestBidding;
 import ro.sda.dto.request.user.AuctionRequest;
 import ro.sda.dto.request.user.UserRequest;
 import ro.sda.dto.response.user.AuctionResponse;
 import ro.sda.entity.Auction;
+import ro.sda.entity.Bidding;
 import ro.sda.entity.UserAccount;
 import ro.sda.enums.Category;
 import ro.sda.mapper.AuctionMapper;
@@ -14,6 +16,7 @@ import ro.sda.repository.BiddingRepository;
 import ro.sda.repository.UserAccountRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,6 +56,23 @@ public class AuctionSiteService {
         return auctions.stream()
                 .map(AuctionMapper::toResponse)
                 .collect(Collectors.toList());
+    }
+
+    public void placeBidding(RequestBidding requestBidding) {
+
+        Optional<UserAccount> userAccount = userAccountRepository.findByAccountName(requestBidding.getAccountName());
+        Optional<Auction> auction = auctionRepository.findByTitle(requestBidding.getTitle());
+
+        Bidding bidding = new Bidding();
+        bidding.setAmount(requestBidding.getAmount());
+        bidding.setAuction(auction.get());
+        bidding.setUser(userAccount.get());
+
+        biddingRepository.save(bidding);
+    }
+
+    public void deleteBidding(Long id) {
+        biddingRepository.deleteById(id);
     }
 
 }

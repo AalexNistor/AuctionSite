@@ -5,7 +5,10 @@ import ro.sda.entity.Auction;
 import ro.sda.enums.Category;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
     List<Auction> findByCategory(Category category);
+
+    Optional<Auction> findByTitle(String title);
 }

@@ -1,6 +1,7 @@
 package ro.sda.controller;
 
 import org.springframework.web.bind.annotation.*;
+import ro.sda.dto.bidding.request.RequestBidding;
 import ro.sda.dto.request.user.AuctionRequest;
 import ro.sda.dto.request.user.UserRequest;
 import ro.sda.dto.response.user.AuctionResponse;
@@ -19,12 +20,12 @@ public class AuctionSiteController {
         this.auctionSiteService = auctionSiteService;
     }
 
-    @PostMapping(path = "/createUser")
+    @PostMapping(path = "/user")
     public void addUser(@RequestBody UserRequest createUserRequest) {
         auctionSiteService.createUser(createUserRequest);
     }
 
-    @PostMapping(path = "/createAuction")
+    @PostMapping(path = "/auction")
     public void addAuction(@RequestBody AuctionRequest createAuctionRequest) {
         auctionSiteService.createAuction(createAuctionRequest);
     }
@@ -37,5 +38,15 @@ public class AuctionSiteController {
     @GetMapping("/category/{category}")
     public List<AuctionResponse> getAuctionsByCategory(@PathVariable Category category) {
         return auctionSiteService.getAuctionsByCategory(category);
+    }
+
+    @PostMapping(path = "/bidding")
+    public void placeBid(@RequestBody RequestBidding placeBidding) {
+        auctionSiteService.placeBidding(placeBidding);
+    }
+
+    @DeleteMapping("/delete/bidding/{id}")
+    public void deleteBid(@PathVariable Long id){
+        auctionSiteService.deleteBidding(id);
     }
 }
