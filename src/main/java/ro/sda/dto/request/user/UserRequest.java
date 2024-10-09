@@ -25,7 +25,7 @@ public class UserRequest {
     private int houseNumber;
 
     @NotEmpty
-    private int zipcode;
+    private int zipCode;
 
     @NotEmpty
     private String street;

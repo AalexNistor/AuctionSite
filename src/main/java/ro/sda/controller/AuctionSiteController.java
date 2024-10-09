@@ -25,6 +25,11 @@ public class AuctionSiteController {
         auctionSiteService.createUser(createUserRequest);
     }
 
+    @PutMapping(path = "/user/edit")
+    public void editUser(@RequestParam Long id, @RequestBody UserRequest editUser) {
+        auctionSiteService.editUser(id, editUser);
+    }
+
     @PostMapping(path = "/auction")
     public void addAuction(@RequestBody AuctionRequest createAuctionRequest) {
         auctionSiteService.createAuction(createAuctionRequest);

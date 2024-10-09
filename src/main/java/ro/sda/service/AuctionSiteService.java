@@ -39,6 +39,18 @@ public class AuctionSiteService {
         userAccountRepository.save(userAccount);
     }
 
+    public void editUser(Long id, UserRequest user) {
+        Optional<UserAccount> optionalUser = userAccountRepository.findById(id);
+
+        UserAccount userUpdated = optionalUser.get();
+        userUpdated.setAccountName(user.getAccountName());
+        userUpdated.setStreet(user.getStreet());
+        userUpdated.setHouseNumber(user.getHouseNumber());
+        userUpdated.setZipCode(user.getZipCode());
+
+        userAccountRepository.save(userUpdated);
+    }
+
     public AuctionResponse createAuction(AuctionRequest auctionRequest) {
         Auction auction = AuctionMapper.toEntity(auctionRequest);
         auction = auctionRepository.save(auction);
