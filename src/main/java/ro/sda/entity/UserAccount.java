@@ -3,6 +3,7 @@ package ro.sda.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -26,6 +27,13 @@ public class UserAccount {
     private int houseNumber;
     @Column(name = "zip_code")
     private int zipCode;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+               joinColumns = {@JoinColumn(name = "user_account_id")},
+               inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    private List<Role> roles = new ArrayList<>();
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Bidding> bids;
 
