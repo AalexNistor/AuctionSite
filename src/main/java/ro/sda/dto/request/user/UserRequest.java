@@ -21,6 +21,7 @@ public class UserRequest {
 
     @NotEmpty(message = "Account name should not be empty")
     private String accountName;
+
     @NotEmpty(message="House number should not be empty")
     private int houseNumber;
 
@@ -29,6 +30,9 @@ public class UserRequest {
 
     @NotEmpty
     private String street;
+
+    @NotEmpty
+    private String role;
 
 
 }

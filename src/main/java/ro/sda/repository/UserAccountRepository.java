@@ -12,4 +12,5 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Long> 
 
 //    @Query("SELECT FROM user_account" )
     Optional<UserAccount> findByAccountName(String accountName);
+    Optional<UserAccount> findUserByEmail(String email);
 }

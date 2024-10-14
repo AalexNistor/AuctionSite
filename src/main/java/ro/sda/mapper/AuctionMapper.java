@@ -6,7 +6,6 @@ import ro.sda.dto.request.user.AuctionRequest;
 import ro.sda.dto.response.user.AuctionResponse;
 import ro.sda.entity.Auction;
 
-@Component
 public class AuctionMapper {
     public static Auction toEntity(AuctionRequest auctionRequest) {
         if (auctionRequest == null) {

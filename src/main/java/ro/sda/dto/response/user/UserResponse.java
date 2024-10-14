@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,5 +16,6 @@ public class UserResponse {
     private String street;
     private int houseNumber;
     private int zipCode;
+    private List<String> roles;
 
 }

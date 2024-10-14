@@ -57,4 +57,8 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public String getEmail() {
+        return userAccount.getLoginEmail();
+    }
 }
