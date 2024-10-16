@@ -1,11 +1,14 @@
 package ro.sda.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.sda.dto.bidding.request.RequestBidding;
-import ro.sda.dto.request.user.AuctionRequest;
+import ro.sda.dto.request.auction.AuctionRequest;
+import ro.sda.dto.request.user.AddRoleToUserRequest;
+import ro.sda.dto.request.user.RoleRequest;
 import ro.sda.dto.request.user.UserRequest;
-import ro.sda.dto.response.user.AuctionResponse;
-import ro.sda.dto.response.user.UserResponse;
+import ro.sda.dto.response.auction.AuctionResponse;
+import ro.sda.dto.response.user.RoleResponse;
 import ro.sda.enums.Category;
 import ro.sda.service.AuctionSiteService;
 
@@ -30,7 +33,7 @@ public class AuctionSiteController {
         auctionSiteService.editUser(id, editUser);
     }
 
-    @PostMapping(path = "/auction")
+    @PostMapping(path = "/create")
     public void addAuction(@RequestBody AuctionRequest createAuctionRequest) {
         auctionSiteService.createAuction(createAuctionRequest);
     }
@@ -53,5 +56,26 @@ public class AuctionSiteController {
     @DeleteMapping("/delete/bidding/{id}")
     public void deleteBid(@PathVariable Long id){
         auctionSiteService.deleteBidding(id);
+    }
+
+    @PostMapping(path = "/role")
+    public ResponseEntity<Void> addRole(@RequestBody RoleRequest roleRequest) {
+        auctionSiteService.addRole(roleRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(path = "/role/{id}")
+    public ResponseEntity<RoleResponse> getRole(@PathVariable Integer id)
+    {
+        RoleResponse response = auctionSiteService.getRole(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/addRoleToUser")
+    public ResponseEntity<Void> addRoleToUser(@RequestBody AddRoleToUserRequest addRoleToUserRequest)
+    {
+
+        auctionSiteService.addRoleToUser(addRoleToUserRequest);
+        return ResponseEntity.ok().build();
     }
 }

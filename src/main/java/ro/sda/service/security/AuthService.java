@@ -10,6 +10,8 @@ import ro.sda.dto.request.user.UserRequest;
 import ro.sda.dto.response.user.SignInResponse;
 import ro.sda.entity.Role;
 import ro.sda.entity.UserAccount;
+import ro.sda.exception.role.RoleNotFoundException;
+import ro.sda.exception.user.UserAlreadyTakenException;
 import ro.sda.mapper.UserMapper;
 import ro.sda.repository.RoleRepository;
 import ro.sda.repository.UserAccountRepository;
@@ -30,10 +32,10 @@ public class AuthService {
     }
 
     public UserAccount getUserByEmail(String email) {
-        Optional<UserAccount> optionalUser = userAccountRepository.findUserByEmail(email);
+        Optional<UserAccount> optionalUser = userAccountRepository.findUserByLoginEmail(email);
 
         if (optionalUser.isPresent()) {
-            System.out.println("Email is already in use"); // Need to create an exception
+            throw new UserAlreadyTakenException("Email is already in use");
         }
         return null;
     }
@@ -44,7 +46,7 @@ public class AuthService {
         if (optionalRole.isPresent()) {
             userAccount.addRole(optionalRole.get());
         } else {
-            System.out.println("Role with name " + userRequest.getRole() + " is not in db");  // Need to create an exception
+            throw new RoleNotFoundException("Role with name " + userRequest.getAccountName() + " is not in db");
         }
         userAccountRepository.save(userAccount);
     }

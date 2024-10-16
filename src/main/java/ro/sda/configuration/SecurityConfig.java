@@ -29,11 +29,11 @@ public class SecurityConfig {
         http.csrf().disable();
         http.authorizeHttpRequests(auth -> {
             auth
-                    .requestMatchers("/role").permitAll()
-                    .requestMatchers("/register").permitAll()
-                    .requestMatchers("/signin").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/auctions").hasAuthority("user")
-                    .requestMatchers(HttpMethod.POST, "auction").hasAuthority("admin")
+                    .requestMatchers("/auction/role").permitAll()
+                    .requestMatchers("/auction/register").permitAll()
+                    .requestMatchers("/auction/signin").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/auction/auctions").hasAuthority("user")
+                    .requestMatchers(HttpMethod.POST, "/auction/create").hasAuthority("admin")
                     .anyRequest().authenticated();
         }).httpBasic(Customizer.withDefaults());
 

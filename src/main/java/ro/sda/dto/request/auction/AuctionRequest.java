@@ -1,4 +1,4 @@
-package ro.sda.dto.request.user;
+package ro.sda.dto.request.auction;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

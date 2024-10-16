@@ -1,9 +1,8 @@
 package ro.sda.mapper;
 
 
-import org.springframework.stereotype.Component;
-import ro.sda.dto.request.user.AuctionRequest;
-import ro.sda.dto.response.user.AuctionResponse;
+import ro.sda.dto.request.auction.AuctionRequest;
+import ro.sda.dto.response.auction.AuctionResponse;
 import ro.sda.entity.Auction;
 
 public class AuctionMapper {

@@ -33,6 +33,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @PostMapping("/signin")
     public ResponseEntity<SignInResponse> signIn(@RequestBody SignInRequest signInRequest) {
         SignInResponse response = authService.signIn(signInRequest);
 

@@ -1,4 +1,4 @@
-package ro.sda.dto.response.user;
+package ro.sda.dto.response.auction;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
