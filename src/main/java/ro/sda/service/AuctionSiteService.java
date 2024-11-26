@@ -8,12 +8,14 @@ import ro.sda.dto.request.user.RoleRequest;
 import ro.sda.dto.request.user.UserRequest;
 import ro.sda.dto.response.auction.AuctionResponse;
 import ro.sda.dto.response.user.RoleResponse;
+import ro.sda.dto.response.user.UserResponse;
 import ro.sda.entity.Auction;
 import ro.sda.entity.Bidding;
 import ro.sda.entity.Role;
 import ro.sda.entity.UserAccount;
 import ro.sda.enums.Category;
 import ro.sda.exception.role.RoleNotFoundException;
+import ro.sda.exception.user.UserNotFoundException;
 import ro.sda.mapper.AuctionMapper;
 import ro.sda.mapper.RoleMapper;
 import ro.sda.mapper.UserMapper;
@@ -42,23 +44,6 @@ public class AuctionSiteService {
         this.roleRepository = roleRepository;
     }
 
-    public void createUser(UserRequest userRequest) {
-        UserAccount userAccount = UserMapper.fromUserRequestToEntity(userRequest);
-        userAccountRepository.save(userAccount);
-    }
-
-    public void editUser(Long id, UserRequest user) {
-        Optional<UserAccount> optionalUser = userAccountRepository.findById(id);
-
-        UserAccount userUpdated = optionalUser.get();
-        userUpdated.setAccountName(user.getAccountName());
-        userUpdated.setStreet(user.getStreet());
-        userUpdated.setHouseNumber(user.getHouseNumber());
-        userUpdated.setZipCode(user.getZipCode());
-
-        userAccountRepository.save(userUpdated);
-    }
-
     public AuctionResponse createAuction(AuctionRequest auctionRequest) {
         Auction auction = AuctionMapper.toEntity(auctionRequest);
         auction = auctionRepository.save(auction);
@@ -76,6 +61,55 @@ public class AuctionSiteService {
         return auctions.stream()
                 .map(AuctionMapper::toResponse)
                 .collect(Collectors.toList());
+    }
+
+    public void deleteAuction(Long id) {
+        auctionRepository.deleteById(id);
+    }
+
+    public void editAuction(Long id, AuctionRequest auction) {
+        Optional<Auction> optionalAuction = auctionRepository.findById(id);
+
+        Auction updatedAuction = optionalAuction.get();
+        updatedAuction.setTitle(auction.getTitle());
+        updatedAuction.setDescription(auction.getDescription());
+        updatedAuction.setCategory(auction.getCategory());
+        updatedAuction.setMinimumAmount(auction.getMinimumAmount());
+
+        auctionRepository.save(updatedAuction);
+    }
+
+    public void createUser(UserRequest userRequest) {
+        UserAccount userAccount = UserMapper.fromUserRequestToEntity(userRequest);
+        userAccountRepository.save(userAccount);
+    }
+
+    public void editUser(Long id, UserRequest user) {
+        Optional<UserAccount> optionalUser = userAccountRepository.findById(id);
+
+        UserAccount userUpdated = optionalUser.get();
+        userUpdated.setAccountName(user.getAccountName());
+        userUpdated.setStreet(user.getStreet());
+        userUpdated.setHouseNumber(user.getHouseNumber());
+        userUpdated.setZipCode(user.getZipCode());
+
+        userAccountRepository.save(userUpdated);
+    }
+
+    public UserResponse getUser(Long id) {
+        Optional<UserAccount> optionalUser = userAccountRepository.findById(id);
+
+        if (optionalUser.isPresent()) {
+            UserAccount userAccount = optionalUser.get();
+            return UserMapper.fromEntityToResponse(userAccount);
+        } else {
+            throw new UserNotFoundException("User with id " + id + " not found");
+        }
+
+    }
+
+    public void deleteUser(Long id) {
+        userAccountRepository.deleteById(id);
     }
 
     public void placeBidding(RequestBidding requestBidding) {

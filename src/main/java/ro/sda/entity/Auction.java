@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "auction_table_one2many")
+@Table(name = "auction")
 public class Auction {
 
     @Id
